@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  width: 15vw;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+}
+.container1 {
+  display: flex;
+  
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  width: 80%;
+
+  margin-right: 30px;
+}
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: rgb(241, 170, 218);
+  border: none;
+  color: #030303;
+  flex-direction: row;
+  font-size: 15px;
+  padding: 5px;
+  width: 110px;
+  font-weight: bold;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}

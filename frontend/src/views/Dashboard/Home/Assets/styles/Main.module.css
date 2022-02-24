@@ -1,0 +1,5 @@
+.container{
+    width: 100vw;
+    
+    background-image: linear-gradient(to right, rgba(214, 18, 155, 0.767) , rgb(0, 110, 255));
+}

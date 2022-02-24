@@ -1,0 +1,12 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "BioRhyme", serif;
+  background-color: #1d1a1cb3;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}

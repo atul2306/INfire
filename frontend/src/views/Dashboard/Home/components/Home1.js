@@ -1,16 +1,22 @@
 import { useHttpClient } from "../../../customHooks/httpHook";
+import { NewsContext } from "../../../customHooks/reducer/NewsContext";
 import React, { useEffect, useState, useContext } from "react";
-import style from "../Assets/styles/home.module.css";
 
+import style from "../Assets/styles/home.module.css";
+import img from "../Assets/images/atul.jpeg"
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
-import SendIcon from '@material-ui/icons/Send';
+import SendIcon from "@material-ui/icons/Send";
 import { toast } from "react-toastify";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { UserContext } from "../../../customHooks/reducer/UserContext";
+import { NavLink } from "react-router-dom";
 const Home1 = () => {
   const { sendRequest, isLoading } = useHttpClient();
   const { userDetails } = useContext(UserContext);
+  const { newsData } = useContext(NewsContext);
+  console.log(newsData);
+
   const userid = userDetails.userId;
   const [post, setpost] = useState([]);
   const [like, setlike] = useState([]);
@@ -20,7 +26,7 @@ const Home1 = () => {
     sendRequest("http://localhost:9000/api/v1/post/findfollowedpost/" + userid)
       .then((res) => {
         if (res.success) {
-        //  console.log(res.post);
+          //  console.log(res.post);
           setpost(res.post);
         } else {
           console.log("false");
@@ -41,7 +47,7 @@ const Home1 = () => {
           setdelete(true);
           toast.success(res.message, { position: toast.POSITION.TOP_RIGHT });
         } else {
-        //  console.log(res);
+          //  console.log(res);
           toast.warn(res.message, { position: toast.POSITION.TOP_RIGHT });
         }
       })
@@ -56,7 +62,7 @@ const Home1 = () => {
     )
       .then((res) => {
         if (res.success) {
-         // console.log(res);
+          // console.log(res);
           setlike(res.post);
 
           //  toast.success(res.message, { position: toast.POSITION.TOP_RIGHT });
@@ -107,7 +113,7 @@ const Home1 = () => {
     <>
       <div className={style.container}>
         {post.map((currphoto) => {
-         // console.log(currphoto);
+          // console.log(currphoto);
 
           return (
             <div className={style.container1}>
@@ -180,14 +186,33 @@ const Home1 = () => {
                     onChange={(e) => setcomment(e.target.value)}
                   />
 
-                  <SendIcon
-                    onClick={() => addcomment(currphoto._id)}
-                  />
+                  <SendIcon onClick={() => addcomment(currphoto._id)} />
                 </div>
               </div>
             </div>
           );
         })}
+
+        {newsData.map((currnews,idx) => {
+          var date = new Date(currnews.created_date);
+            date = date.toString();
+            const short=currnews.short_url;
+             if(currnews.title && currnews.abstract && currnews.multimedia )   
+               return (
+
+                <div className={style.container7}>
+             <div style={{display:"flex",width:"90%",padding:"14px",flexDirection:"column"}} key={idx} >
+            <img src={currnews.multimedia && currnews.multimedia[0].url}/>
+             <h1 >{currnews.title}</h1>
+             <h3 >{currnews.abstract}</h3>
+             {date}
+        <a   style={{cursor:"pointer",color:"black",textDecoration:"none",display:"flex",marginLeft:"75%",border:"double",padding:"4px",justifyContent:"flex-end"}} href={currnews.short_url} target="_blank" >Read More..</a>
+             </div>
+             
+        </div>  
+               );
+          })
+        }
       </div>
     </>
   );

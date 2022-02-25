@@ -23,14 +23,7 @@ const Login2 = () => {
         "Content-Type": "application/json",
       }
     )
-    // fetch("http://localhost:9000/api/auth/signin", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(Object.fromEntries(formdata)),
-    // })
-     // .then((res) => res.json())
+  
 
       .then((res) => {
         if (res.ok) {
@@ -57,7 +50,7 @@ const Login2 = () => {
     <div className={style.container}>
       <div className={style.container1}>
         <div className={style.container2}>
-          <h1>Login To Your Account</h1>
+          <h1 >Login To Your Account</h1>
           <h4 style={{ marginTop: "5px",color:"lightgrey",visibility:"unset" }}>welcome BACK , find your friends</h4>
         </div>
         <form onSubmit={LoginData} className={style.container6}>

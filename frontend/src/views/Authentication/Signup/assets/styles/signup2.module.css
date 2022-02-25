@@ -111,3 +111,12 @@
       
       color: rgb(159, 205, 50);
     }
+
+    @media(max-width:780px){
+      .container{
+        width: 100%;
+        position: relative;
+        bottom: 40px;
+      }
+      
+   }

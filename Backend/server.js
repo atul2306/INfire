@@ -29,9 +29,21 @@ app.use((req, res, next) => {
 const post =require("./Routes/post")
 const user =require("./Routes/oauth")
 const auth =require("./Routes/auth")
+const news= require("./Routes/NewsApi")
 app.use("/api/auth",user); 
 app.use("/api/v1",post);  // call hoga aise api/v1/post/upload  is type se andar me
+app.use("/api/news",news);
 app.use(auth)
+
+
+// For any unknown API request
+app.use((error, req, res, next) => {
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(500).json({ message: error.message || "Something went wrong" });
+});
+
 
 const PORT = process.env.PORT || 8000;
 const CONNECTION_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.cukln.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;

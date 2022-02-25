@@ -18,18 +18,25 @@ import UpdateProfile from "./views/Dashboard/My Profile/components/component/upd
 import AddPost from "./views/Dashboard/Home/components/AddPost/Addpost";
 /////// * context *
 import { useAuth } from "../../frontend/src/views/customHooks/authHook";
-import { UserContext } from "../src/views/customHooks/reducer/UserContext";
 
+import { UserContext } from "../src/views/customHooks/reducer/UserContext";
+import { useNewsHook } from "../../frontend/src/views/customHooks/newshook";
+import { NewsContext } from "./views/customHooks/reducer/NewsContext";
 const App = () => {
   const auth = useAuth();
   const [routes, setroutes] = useState(null);
+  const news=useNewsHook();
   // const {token}= useAuth();
-  console.log(auth);
+ // console.log(auth);
   const authContextVal = {
     login: auth.login,
     userDetails: auth.userDetails,
     token: auth.token,
     logout: auth.logout,
+  };
+  const newsContextVal = {
+    newsData:news.newsData
+
   };
 
   useEffect(() => {
@@ -97,7 +104,9 @@ const App = () => {
     <>
       <ToastContainer />
       <UserContext.Provider value={authContextVal}>
+        <NewsContext.Provider value={newsContextVal}>
         <Router>{routes}</Router>
+        </NewsContext.Provider>
       </UserContext.Provider>
     </>
   );

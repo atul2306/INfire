@@ -66,9 +66,9 @@ nav {
   
   .menu-list li a:hover,
   .menu-list li a.active {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgb(255, 255, 255);
     border-radius: 2px;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     transition: all 0.5s ease-in-out;
   }
   

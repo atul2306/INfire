@@ -1,5 +1,5 @@
 nav {
-    background: rgba(37, 36, 36, 0.671);
+    border-bottom: 1px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -66,9 +66,10 @@ nav {
   
   .menu-list li a:hover,
   .menu-list li a.active {
-    background-color: rgb(255, 255, 255);
+    background-color: #c3073f;
+
     border-radius: 2px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     transition: all 0.5s ease-in-out;
   }
   

@@ -10,9 +10,9 @@
   flex-direction: column;
   justify-content: center;
   width: 60%;
-  
+  border: double;
   margin-top: 5%;
-  background-color: rgb(73 73 73)
+ 
 }
 .container2 {
   display: flex;
@@ -37,9 +37,9 @@
 .button {
   display: inline-block;
   border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #ffffff;
+  border: double;
+  color: #c3073f;
+  background-color: #1a1a1d;
 
   font-size: 15px;
   padding: 10px;

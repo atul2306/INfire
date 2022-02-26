@@ -11,7 +11,8 @@ const Confirmemail = () => {
   useEffect(async () => {
     setsucess(null);
     seterror(null);
-    fetch(`http://localhost:9000/api/auth/email/confirm/${id}`)
+   // fetch(`http://localhost:9000/api/auth/email/confirm/${id}`)
+   fetch(process.env.REACT_APP_APIURL+"/api/auth/email/confirm/" + id)
       .then((res) => res.json())
       .then((res) => {
         if (res.ok) {

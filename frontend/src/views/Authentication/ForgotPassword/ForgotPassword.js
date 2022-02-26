@@ -10,7 +10,8 @@ const ForgotPassword = () => {
   const setemail = (e) => {
     e.preventDefault();
     const formdata = new FormData(e.target);
-    sendRequest("http://localhost:9000/api/auth/email/forgot"
+    //sendRequest("http://localhost:9000/api/auth/email/forgot"
+      sendRequest(process.env.REACT_APP_APIURL+"/api/auth/email/forgot"
       ,
       "POST",
       JSON.stringify(Object.fromEntries(formdata)),

@@ -15,15 +15,15 @@
 }
 
 .container3{
-    display: flex;
-    box-shadow: rgba(0, 0, 0, 0.836) 0px 5px 15px;
+  display: flex;
+  box-shadow: rgb(255 2 2 / 68%) 0px 5px 15px;
     flex-direction: column;
     font-size: 14px;
     align-items: center;
     justify-content: center;
-   margin-right: 5px;
+    color: wheat;
+    /* margin-right: 5px; */
     width: 22%;
-    height: 20%;
-    
-    margin:5px 3px;
+    margin-bottom: 8px;
+   
 }

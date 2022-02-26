@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "../src/views/Authentication/Login/Login";
 import Signup from "../src/views/Authentication/Signup/Signup";
@@ -25,9 +25,9 @@ import { NewsContext } from "./views/customHooks/reducer/NewsContext";
 const App = () => {
   const auth = useAuth();
   const [routes, setroutes] = useState(null);
-  const news=useNewsHook();
+  const news = useNewsHook();
   // const {token}= useAuth();
- // console.log(auth);
+  // console.log(auth);
   const authContextVal = {
     login: auth.login,
     userDetails: auth.userDetails,
@@ -35,8 +35,7 @@ const App = () => {
     logout: auth.logout,
   };
   const newsContextVal = {
-    newsData:news.newsData
-
+    newsData: news.newsData,
   };
 
   useEffect(() => {
@@ -89,10 +88,7 @@ const App = () => {
           <Route exact path="/auth/:token">
             <Googlelogin />
           </Route>
-          <Route exact path="/auth/:token">
-            <Googlelogin />
-          </Route>
-
+          
           <Redirect to="/"></Redirect>
         </Switch>
       );
@@ -102,10 +98,23 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        theme="theme"
+        autoClose={2000}
+        hideProgressBar
+        closeOnClick
+        pauseOnFocusLoss={false}
+        draggable
+        transition={Flip}
+        toastStyle={{
+          backgroundColor: "#1a1a1d",
+          color: "white",
+          border: "2px solid #c3073f",
+        }}
+      />
       <UserContext.Provider value={authContextVal}>
         <NewsContext.Provider value={newsContextVal}>
-        <Router>{routes}</Router>
+          <Router>{routes}</Router>
         </NewsContext.Provider>
       </UserContext.Provider>
     </>

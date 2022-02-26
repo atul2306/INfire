@@ -11,7 +11,8 @@ const Signup2 = () => {
     e.preventDefault();
     const formdata = new FormData(e.target);
     //console.log(formdata);
-    sendRequest("http://localhost:9000/api/auth/signup"
+   // sendRequest("http://localhost:9000/api/auth/signup"
+     sendRequest(process.env.REACT_APP_APIURL+"/api/auth/signup"
       ,
       "POST",
       JSON.stringify(Object.fromEntries(formdata)),
@@ -79,7 +80,7 @@ const Signup2 = () => {
     </div>
     <div style={{marginTop:"12px",padding:"2px",color:"slateblue",fontWeight:"bold",fontStyle:"italic"}} className={style.container5}>
    
-    <a href="http://localhost:9000/auth/google" style={{textDecoration: "none", color: "white",display:"flex",alignItems:"center"}}> <img style={{width:"23px"}} src="https://img.icons8.com/color/50/000000/google-logo.png"/>Register With Google</a>
+    <a href={process.env.REACT_APP_APIURL+"/auth/google"} style={{textDecoration: "none", color: "white",display:"flex",alignItems:"center"}}> <img style={{width:"23px"}} src="https://img.icons8.com/color/50/000000/google-logo.png"/>Register With Google</a>
     </div>
   </div>
   );

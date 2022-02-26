@@ -1,7 +1,7 @@
 import { useHttpClient } from "../../../../../customHooks/httpHook";
 import { UserContext } from "../../../../../customHooks/reducer/UserContext";
 import React, { useContext } from "react";
-import { CircularProgress } from "@material-ui/core";
+import { Avatar, CircularProgress } from "@material-ui/core";
 import style from "./updateprofile.module.css";
 import { toast } from "react-toastify";
 import PersonAddSharpIcon from "@material-ui/icons/PersonAddSharp";
@@ -16,8 +16,10 @@ const UpdateProfile = () => {
     e.preventDefault();
     const formdata = new FormData(e.target);
     formdata.append("userId", id);
+    // sendRequest(
+    //   "http://localhost:9000/api/auth/update/profile/",
     sendRequest(
-      "http://localhost:9000/api/auth/update/profile/",
+      process.env.REACT_APP_APIURL +"/api/auth/update/profile/",
       "POST",
       formdata
     )
@@ -41,7 +43,7 @@ const UpdateProfile = () => {
     <>
       <div className={style.container}>
         <div className={style.container1}>
-          <h2>Update Profile</h2>
+          <h2 style={{ color: "aliceblue" }}>Update Profile</h2>
           <form onSubmit={updateandClick} className={style.container2}>
             <input
               type="file"
@@ -50,16 +52,18 @@ const UpdateProfile = () => {
               name="image"
             />
             <label for="imgupload">
-              <PersonAddSharpIcon
+              <Avatar
                 style={{
-                  color: "black",
-
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   marginTop: "8px",
-
+                  height: "25vh",
+                  cursor: "pointer",
+                  width: "20vw",
                   margin: "auto",
+                  color: "#c3073f",
+                  backgroundColor: "#1a1a1d"
                 }}
               />
             </label>

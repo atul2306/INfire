@@ -11,7 +11,7 @@ router.post("/email/reset/:token",authcontroller.resetPassword)     // reset pas
 router.get("/email/confirm/:id",authcontroller.confirm_Email)    // email confirmation 
 router.get("/followAndUnfollow/:query",authcontroller.FollowAndUnfollow)    // follow and unfollow
 router.post("/update/profile",multer.single("image"),authcontroller.UpdateProfile)     // update profile
-router.put("/update/password",authcontroller.UpdatePassword)   // update password
+router.post("/update/password",authcontroller.UpdatePassword)   // update password
 router.delete("/delete/profile",authcontroller.deleteprofile)   // delete profile
 router.get("/myprofile/:id",authcontroller.myprofile)      // get my profile
 router.get("/anyprofile/:id",authcontroller.getuserprofile)      // get any user profile

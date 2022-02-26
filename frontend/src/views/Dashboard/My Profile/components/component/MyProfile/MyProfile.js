@@ -15,7 +15,8 @@ const MyProfile = () => {
 
   //console.log(id);
   useEffect(() => {
-    sendRequest("http://localhost:9000/api/auth/mydetail/" + id)
+    // sendRequest("http://localhost:9000/api/auth/mydetail/" + id)
+    sendRequest(process.env.REACT_APP_APIURL +"/api/auth/mydetail/" + id)
       .then((res) => {
         if (res.success) {
           console.log(res.user);
@@ -35,8 +36,7 @@ const MyProfile = () => {
       <div className={style.container}>
         <div className={style.container2}>
           <Avatar
-            src={user?.local?.avatar?.url}
-            style={{
+          style={{
               color: "black",
 
               width: "200px",
@@ -44,17 +44,19 @@ const MyProfile = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginTop: "8px",
-
-              margin: "auto",
+             
+             
+              margin: "auto", 
             }} 
            
+            src={user?.local?.avatar?.url}
+            
           />
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <span style={{ fontSize: "21px" }}>
+          <div style={{ display: "flex", justifyContent: "space-evenly",padding:"4px 4px" }}>
+            <span style={{ fontSize: "21px",color: "#deb88775" }}>
               <b>{user?.local?.followers?.length}</b> Follower
             </span>
-            <span style={{ fontSize: "21px" }}>
+            <span style={{ fontSize: "21px",color: "#deb88775" }}>
               <b>{user?.local?.following?.length}</b> Following
             </span>
           </div>
@@ -67,52 +69,38 @@ const MyProfile = () => {
           <span className={style.container1}>Password :- *********</span>
           <div
             style={{
-              marginLeft: "2rem",
+              
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-evenly",
-              marginTop: "18px",
+              margin: "18px",
             }}
           >
             <button className={style.button}>
               <span>
-                <NavLink
-                  style={{ textDecoration: "none", color: "black" }}
-                  exact
-                  to="/dash/feedback"
-                >
+                
                   <NavLink
-                    style={{ textDecoration: "none", color: "black" }}
+                    style={{ textDecoration: "none", color: "white" }}
                     exact
                     to="/dash/Updateprofile"
                   >
                     Update Profile
                   </NavLink>
-                </NavLink>{" "}
+               
               </span>
             </button>
             <button className={style.button} onClick={logout}>
               <span>
                 <NavLink
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                   exact
                   to="/"
                 >
-                  Logout
+                  LOGOUT
                 </NavLink>
               </span>
             </button>
-            <button className={style.button}>
-              <span>
-                <NavLink
-                  style={{ textDecoration: "none", color: "black" }}
-                  exact
-                  to="/dash/feedback"
-                >
-                  Update Password
-                </NavLink>
-              </span>
-            </button>
+           
           </div>
         </div>
       </div>

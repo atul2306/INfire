@@ -3,7 +3,7 @@ import { NewsContext } from "../../../customHooks/reducer/NewsContext";
 import React, { useEffect, useState, useContext } from "react";
 
 import style from "../Assets/styles/home.module.css";
-import img from "../Assets/images/atul.jpeg"
+import img from "../Assets/images/atul.jpeg";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
 import SendIcon from "@material-ui/icons/Send";
@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { UserContext } from "../../../customHooks/reducer/UserContext";
 import { NavLink } from "react-router-dom";
+import { Avatar } from "@material-ui/core";
 const Home1 = () => {
   const { sendRequest, isLoading } = useHttpClient();
   const { userDetails } = useContext(UserContext);
@@ -23,7 +24,8 @@ const Home1 = () => {
   const [delete1, setdelete] = useState(false);
   const [comment, setcomment] = useState("");
   useEffect(async () => {
-    sendRequest("http://localhost:9000/api/v1/post/findfollowedpost/" + userid)
+    //sendRequest("http://localhost:9000/api/v1/post/findfollowedpost/" + userid)
+    sendRequest( process.env.REACT_APP_APIURL + "/api/v1/post/findfollowedpost/" + userid)
       .then((res) => {
         if (res.success) {
           //  console.log(res.post);
@@ -39,7 +41,8 @@ const Home1 = () => {
   }, [like, delete1, comment]);
 
   const deletePost = (id) => {
-    sendRequest("http://localhost:9000/api/v1/post/delete/" + id + "," + userid)
+  //  sendRequest("http://localhost:9000/api/v1/post/delete/" + id + "," + userid)
+      sendRequest( process.env.REACT_APP_APIURL + "/api/v1/post/delete/" + id + "," + userid)
       .then((res) => {
         //console.log(2);
         if (res.success) {
@@ -57,8 +60,11 @@ const Home1 = () => {
   };
 
   const likePost = (id) => {
+    // sendRequest(
+    //   "http://localhost:9000/api/v1/post/likeandUnlike/" + id + "," + userid
+    // )
     sendRequest(
-      "http://localhost:9000/api/v1/post/likeandUnlike/" + id + "," + userid
+      process.env.REACT_APP_APIURL + "/api/v1/post/likeandUnlike/" + id + "," + userid
     )
       .then((res) => {
         if (res.success) {
@@ -87,8 +93,10 @@ const Home1 = () => {
       userid: userid,
       comment: comment,
     };
+    // sendRequest(
+    //   "http://localhost:9000/api/v1/post/comment",
     sendRequest(
-      "http://localhost:9000/api/v1/post/comment",
+      process.env.REACT_APP_APIURL + "/api/v1/post/comment",
       "POST",
       JSON.stringify(data),
       {
@@ -118,9 +126,19 @@ const Home1 = () => {
           return (
             <div className={style.container1}>
               <div className={style.container2}>
-                <h3>Name</h3>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "7px",
+                  }}
+                >
+                  <Avatar style={{backgroundColor:"#c3073f"}} />
+                  <h3 style={{color:"white"}}>Name</h3>
+                </div>
+
                 <HighlightOffIcon
-                  style={{ fontSize: "1.8rem" }}
+                  style={{ fontSize: "1.8rem",color:"white",padding:"10px" }}
                   onClick={() => deletePost(currphoto._id)}
                 />
               </div>
@@ -143,6 +161,7 @@ const Home1 = () => {
                     alignItems: "baseline",
                     width: "100%",
                     margin: "3%",
+                    color:"white"
                   }}
                 >
                   {currphoto.caption}
@@ -158,13 +177,13 @@ const Home1 = () => {
                   <i
                     className={style.container5}
                     style={{
-                      color: islike(currphoto._id) ? "black" : "lightblue",
+                      color: islike(currphoto._id) ? "#c3073f" : "white",
                       cursor: "pointer",
                     }}
                     onClick={() => likePost(currphoto._id)}
                     className="fa fa-heart"
                   >
-                    {currphoto.likes.length} Likes
+                    {currphoto.likes.length} 
                   </i>
                   <i className={style.container5} className="fa fa-comment">
                     {currphoto.comments.length} Comments
@@ -186,33 +205,65 @@ const Home1 = () => {
                     onChange={(e) => setcomment(e.target.value)}
                   />
 
-                  <SendIcon onClick={() => addcomment(currphoto._id)} />
+                  <SendIcon style={{color:"whitesmoke"}} onClick={() => addcomment(currphoto._id)} />
                 </div>
               </div>
             </div>
           );
         })}
-
-        {newsData.map((currnews,idx) => {
+        <span
+          style={{
+            display: "flex",
+            fontSize: "x-large",
+            fontStyle: "italic",
+            fontFamily: "cursive",
+          }}
+        >
+          News Feed
+        </span>
+        {newsData.map((currnews, idx) => {
           var date = new Date(currnews.created_date);
-            date = date.toString();
-            const short=currnews.short_url;
-             if(currnews.title && currnews.abstract && currnews.multimedia )   
-               return (
-
-                <div className={style.container7}>
-             <div style={{display:"flex",width:"90%",padding:"14px",flexDirection:"column"}} key={idx} >
-            <img src={currnews.multimedia && currnews.multimedia[0].url}/>
-             <h1 >{currnews.title}</h1>
-             <h3 >{currnews.abstract}</h3>
-             {date}
-        <a   style={{cursor:"pointer",color:"black",textDecoration:"none",display:"flex",marginLeft:"75%",border:"double",padding:"4px",justifyContent:"flex-end"}} href={currnews.short_url} target="_blank" >Read More..</a>
-             </div>
-             
-        </div>  
-               );
-          })
-        }
+          date = date.toString();
+          const short = currnews.short_url;
+          if (currnews.title && currnews.abstract && currnews.multimedia)
+            return (
+              <div className={style.container7}>
+                <div
+                  style={{
+                    display: "flex",
+                    width: "90%",
+                    padding: "14px",
+                    flexDirection: "column",
+                  }}
+                  key={idx}
+                >
+                  <img
+                    src={currnews.multimedia && currnews.multimedia[0].url}
+                  />
+                  <h2 style={{color:"white"}}>{currnews.title}</h2>
+                  <h3 style={{color:"wheat"}}>{currnews.abstract}</h3>
+                  <p style={{color:"#f1c40f"}}>{date}</p>
+                  <a
+                    style={{
+                      cursor: "pointer",
+                      color: "white",
+                      textDecoration: "none",
+                      display: "flex",
+                      borderColor:" #c3073f",
+                      marginLeft: "75%",
+                      border: "double",
+                      padding: "4px",
+                      justifyContent: "flex-end",
+                    }}
+                    href={currnews.short_url}
+                    target="_blank"
+                  >
+                    Read More...
+                  </a>
+                </div>
+              </div>
+            );
+        })}
       </div>
     </>
   );

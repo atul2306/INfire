@@ -8,9 +8,9 @@ const AddPost = () => {
         <div className={style.container1}>
             <h2>Add Post</h2>
             <button className={style.button}>
-              <span>
+              <span >
                 <NavLink
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none",color:"white" }}
                   exact
                   to="/dash/Addpost"
                 >

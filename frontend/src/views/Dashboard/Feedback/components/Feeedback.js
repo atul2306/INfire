@@ -9,8 +9,9 @@ const Feeedback = () => {
     e.preventDefault();
     const formdata = new FormData(e.target);
 
+    //sendRequest("http://localhost:9000/api/auth/feedback",
     sendRequest(
-      "http://localhost:9000/api/auth/feedback",
+      process.env.REACT_APP_APIURL + "/api/auth/feedback",
       "POST",
       JSON.stringify(Object.fromEntries(formdata)),
       {
@@ -45,7 +46,7 @@ const Feeedback = () => {
     <>
       <div className={style.container}>
         <div className={style.container1}>
-          <h2>We appreciate your Feedback</h2>
+          <h2 style={{ color: "whitesmoke" }}>We appreciate your Feedback</h2>
           <form onSubmit={feedbackenter} className={style.container2}>
             <input
               className={style.container3}
@@ -68,9 +69,11 @@ const Feeedback = () => {
               name="description"
             />
             <div style={{ display: "flex", margin: "4%" }}>
-            {isLoading && <CircularProgress style={{color:"blueviolet"}}/>}
+              {isLoading && (
+                <CircularProgress style={{ color: "blueviolet" }} />
+              )}
               <button className={style.button}>
-                <span>Submit </span>
+                <span style={{ color: "white" }}>Submit </span>
               </button>
             </div>
           </form>

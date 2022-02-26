@@ -14,7 +14,8 @@ const ResetPassword = () => {
     const formdata = new FormData(e.target);
 
     sendRequest(
-      `http://localhost:9000/api/auth/email/reset/${token}`,
+     // `http://localhost:9000/api/auth/email/reset/${token}`,
+     process.env.REACT_APP_APIURL+"/api/auth/email/reset/"+token,
       "POST",
       JSON.stringify(Object.fromEntries(formdata)),
       {

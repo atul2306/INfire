@@ -2,7 +2,8 @@ body {
   padding: 0;
   margin: 0;
   font-family: "BioRhyme", serif;
-  background-color: #1d1a1cb3;
+  background-color: #1a1a1d;
+  color: #c3073f
 }
 
 input:focus,

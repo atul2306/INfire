@@ -14,8 +14,9 @@ const Login2 = () => {
    
     e.preventDefault();
     const formdata = new FormData(e.target);
-     console.log(formdata);
-    sendRequest("http://localhost:9000/api/auth/signin"
+     //console.log(formdata);
+  //  sendRequest("http://localhost:9000/api/auth/signin"
+     sendRequest(process.env.REACT_APP_APIURL+"/api/auth/signin"
       ,
       "POST",
       JSON.stringify(Object.fromEntries(formdata)),
@@ -67,7 +68,7 @@ const Login2 = () => {
             placeholder="Password"
           />
           <div style={{display:"flex"}}>
-           
+          {isLoading && <CircularProgress style={{color:"blueviolet"}}/>}
           <button className={style.button}>
            <span>Login </span>
           </button>
@@ -103,7 +104,7 @@ const Login2 = () => {
         }}
         className={style.container5}
       >
-        <a href="http://localhost:9000/auth/google" style={{textDecoration: "none", color: "white",display:"flex",alignItems:"center" }}><img style={{width:"23px"}} src="https://img.icons8.com/color/50/000000/google-logo.png"/> Login With Google</a>
+        <a href={process.env.REACT_APP_APIURL+"/auth/google"} style={{textDecoration: "none", color: "white",display:"flex",alignItems:"center" }}><img style={{width:"23px"}} src="https://img.icons8.com/color/50/000000/google-logo.png"/> Login With Google</a>
       </div>
     </div>
   );

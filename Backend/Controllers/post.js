@@ -132,10 +132,12 @@ module.exports.likeAndUnlikePost = async (req, res, next) => {
 module.exports.FindPostbyfollowing = async (req, res, next) => {
   try {
     // populate pura id ko convert kr dega pura model me
-    // const user= await User.findById(req.user._id).populate(
+    const { id } = req.params;
+    // const user1= await User.findById(id).populate(
     //     "following","posts"
     // )
-    const { id } = req.params;
+    //  console.log(user1)  
+   
     // console.log(id)
     const user = await User.findById(id);
     // console.log(user)
@@ -155,6 +157,7 @@ module.exports.FindPostbyfollowing = async (req, res, next) => {
     for (let i = 0; i < finduserpost.length; i++) {
       post.push(finduserpost[i]);
     }
+
     return res.status(200).json({
       success: true,
       post,

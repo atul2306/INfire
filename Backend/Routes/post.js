@@ -1,7 +1,7 @@
 const express=require("express")
 const router= express.Router();
 const multer= require("../Config/multer")
-const { image } = require("../config/cloudinary");
+const { image } = require("../Config/Cloudinary");
 const postcontroller = require("../Controllers/post")
 router.post("/post/upload",multer.single("image"),postcontroller.upload_controller)
 router.get("/post/likeandUnlike/:query",postcontroller.likeAndUnlikePost)   // like aur dislike ke lie hai

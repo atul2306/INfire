@@ -12,6 +12,7 @@ const router = require("../Routes/post");
 
 // generate id
 const { v4: uuidv4 } = require("uuid");
+const { resolveSoa } = require("dns");
 // make Tokens
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
@@ -25,7 +26,7 @@ module.exports.auth_signup_controller = async (req, res, next) => {
   // console.log(2)
   try {
     if (!name || !email || !password || password.length < 6) {
-      return res.status(501).json({
+      return res.status(400).json({
         message: "Please fill all the fields",
         ok: false,
       });
@@ -69,7 +70,7 @@ module.exports.confirm_Email = async (req, res, next) => {
       },
     });
     if (user.local.confirmed) {
-      return res.json({ message: "User already confirmed", ok: false });
+      return res.status(400).json({ message: "User already confirmed", ok: false });
     } else {
       const token = createToken(user._id);
       return res.json({
@@ -95,7 +96,7 @@ module.exports.auth_signin_controller = async (req, res, next) => {
       return res.json({ ok: false, message: "Credentials seems to be wrong" });
     }
     if (!user.local.confirmed) {
-      return res.status(403).json({
+      return res.status(400).json({
         message: "Email not Confirmed. Please check your email account",
         ok: false,
       });
@@ -173,9 +174,14 @@ module.exports.resetPassword = async (req, res, next) => {
   try {
     const { token } = req.params;
     const { pswd, confpswd } = req.body;
-
+    if (!pswd || !confpswd || pswd.length < 6 || confpswd.length < 6) {
+      return res.status(400).json({
+        message: "Password must be atleast 6 characters long or is Incomplete",
+        ok: false,
+      });
+    }
     if (pswd !== confpswd) {
-      return res.json({ message: "Password Not Matching" });
+      return res.status(400).json({ message: "Password Not Matching" });
     }
     const hashPswd = await bcrypt.hash(pswd, 10);
 
@@ -205,7 +211,7 @@ module.exports.resetPassword = async (req, res, next) => {
         nodemailer.pswdChangeTemp(user.local.name, user.local.email)
       );
 
-      res.json({
+      res.status(200).json({
         message: "Password Successfully Changed",
         ok: true,
       });
@@ -305,7 +311,7 @@ module.exports.getUser = async (req, res, next) => {
 module.exports.getFeedback = async (req, res) => {
   const { name, email, description } = req.body;
   if (!name || !email || !description)
-    return res.json({ message: "Fill all Inputs", ok: false });
+    return res.status(400).json({ message: "Fill all Inputs", ok: false });
   try {
     const feed = await new Feedback({
       name,
@@ -317,7 +323,7 @@ module.exports.getFeedback = async (req, res) => {
       process.env.MAIL_USER,
       nodemailer.feedbackTemplate(name, email, description)
     );
-    return res.json({ message: "Feedback Submitted", ok: true });
+    return resolveSoa.status(201).json({ message: "Feedback Submitted", ok: true });
   } catch (err) {
     console.log(err);
     return res

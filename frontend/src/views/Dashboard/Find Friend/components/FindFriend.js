@@ -70,7 +70,7 @@ const FindFriend = () => {
                       height: "120px",
                       marginTop: "5%",
                     }}
-                    src={curruser.local.avatar.url || "/broken-image.jpg"}
+                    src={curruser?.local?.avatar?.url }
                   />
 
                   <span style={{ color: "wheat" }} className={style.container3}>

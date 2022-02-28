@@ -3,3 +3,9 @@
     width: 100vw;
    
 }
+
+@media (max-width: 780px) {
+    .container{
+        justify-content: center;
+    }
+  }

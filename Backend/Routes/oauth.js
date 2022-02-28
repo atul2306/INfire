@@ -12,7 +12,7 @@ router.get("/email/confirm/:id",authcontroller.confirm_Email)    // email confir
 router.get("/followAndUnfollow/:query",authcontroller.FollowAndUnfollow)    // follow and unfollow
 router.post("/update/profile",multer.single("image"),authcontroller.UpdateProfile)     // update profile
 router.post("/update/password",authcontroller.UpdatePassword)   // update password
-router.delete("/delete/profile",authcontroller.deleteprofile)   // delete profile
+router.delete("/delete/profile/:id",authcontroller.deleteprofile)   // delete profile
 router.get("/myprofile/:id",authcontroller.myprofile)      // get my profile
 router.get("/anyprofile/:id",authcontroller.getuserprofile)      // get any user profile
 router.get("/allprofile",authcontroller.alluserprofile)   // get all user profile

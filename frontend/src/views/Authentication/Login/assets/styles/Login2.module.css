@@ -12,8 +12,10 @@
   flex-direction: column;
   justify-content: center;
   width: 85%;
-  background-color: rgba(36, 34, 34, 0.767);
+  box-shadow: rgb(97 97 97 / 68%) 0px 5px 15px;
+  /* background-color: rgba(36, 34, 34, 0.767); */
 }
+
 .container2 {
   color: rgb(237, 237, 245);
   font-style: italic;
@@ -101,10 +103,14 @@
   flex-direction: column;
   justify-content: center;
   width: 85%;
-  padding: 2px 1px;
+  padding: 8px 4px;
+  border-radius: 8px;
   margin-top: 7px;
   color: rgb(159, 205, 50);
-  background-color: rgba(36, 34, 34, 0.719);
+  
+  box-shadow: rgb(97 97 97 / 38%) 0px 5px 15px;
+  
+ 
 }
 
 @media(max-width:780px){

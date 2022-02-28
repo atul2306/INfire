@@ -1,7 +1,7 @@
 import { useHttpClient } from "../../../customHooks/httpHook";
 import { NewsContext } from "../../../customHooks/reducer/NewsContext";
 import React, { useEffect, useState, useContext } from "react";
-
+import { CircularProgress } from "@material-ui/core";
 import style from "../Assets/styles/home.module.css";
 import img from "../Assets/images/atul.jpeg";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
@@ -136,9 +136,10 @@ const Home1 = () => {
                   <Avatar style={{backgroundColor:"#c3073f"}} />
                   <h3 style={{color:"white"}}>Name</h3>
                 </div>
-
+                {isLoading && <CircularProgress style={{color:"blueviolet"}}/>}
                 <HighlightOffIcon
-                  style={{ fontSize: "1.8rem",color:"white",padding:"10px" }}
+                  style={{ fontSize: "1.8rem",color:"white",padding:"10px",cursor:"pointer" }}
+                
                   onClick={() => deletePost(currphoto._id)}
                 />
               </div>
@@ -212,6 +213,7 @@ const Home1 = () => {
           );
         })}
         <span
+         className={style.container8}
           style={{
             display: "flex",
             fontSize: "x-large",
@@ -238,12 +240,14 @@ const Home1 = () => {
                   key={idx}
                 >
                   <img
+                   className={style.container10}
                     src={currnews.multimedia && currnews.multimedia[0].url}
                   />
                   <h2 style={{color:"white"}}>{currnews.title}</h2>
                   <h3 style={{color:"wheat"}}>{currnews.abstract}</h3>
                   <p style={{color:"#f1c40f"}}>{date}</p>
                   <a
+                   className={style.container9}
                     style={{
                       cursor: "pointer",
                       color: "white",
@@ -253,7 +257,7 @@ const Home1 = () => {
                       marginLeft: "75%",
                       border: "double",
                       padding: "4px",
-                      justifyContent: "flex-end",
+                      
                     }}
                     href={currnews.short_url}
                     target="_blank"

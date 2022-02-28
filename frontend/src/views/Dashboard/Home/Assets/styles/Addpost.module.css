@@ -58,3 +58,12 @@
   opacity: 1;
   right: 0;
 }
+
+@media (max-width: 780px) {
+  .container{
+    position: absolute;
+   
+    height: 20vh;
+    width: 40vw;
+  }
+}

@@ -22,12 +22,19 @@ const createToken = (id) => {
 };
 
 module.exports.auth_signup_controller = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  
   // console.log(2)
   try {
-    if (!name || !email || !password || password.length < 6) {
-      return res.status(400).json({
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res.json({
         message: "Please fill all the fields",
+        ok: false,
+      });
+    }
+    if (password.length<6) {
+      return res.json({
+        message: "Password not Strong (Should be atleast 6 Character)",
         ok: false,
       });
     }
@@ -55,7 +62,7 @@ module.exports.auth_signup_controller = async (req, res, next) => {
       ok: true,
     });
   } catch (err) {
-    message: "Something went wrong", console.log(err);
+    console.log(err);
   }
 };
 
@@ -70,7 +77,7 @@ module.exports.confirm_Email = async (req, res, next) => {
       },
     });
     if (user.local.confirmed) {
-      return res.status(400).json({ message: "User already confirmed", ok: false });
+      return res.json({ message: "User already confirmed", ok: false });
     } else {
       const token = createToken(user._id);
       return res.json({
@@ -436,8 +443,9 @@ module.exports.FollowAndUnfollow = async (req, res, next) => {
 
 module.exports.deleteprofile = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user._id);
-    const id = req.user._id;
+    const {id}=req.params()
+    const user = await User.findById(id);
+    
     const post = user.local.posts;
     const follower = user.local.followers;
     const following = user.local.following; // de;et kroge to followers ko b to hatana hoga aur following ko b
@@ -450,16 +458,25 @@ module.exports.deleteprofile = async (req, res, next) => {
     }
     for (let i = 0; i < follower.length; i++) {
       const followeduser = await User.findById(follower[i]);
-      const index = await followeduser.following.indexof(id);
+      const index = await followeduser?.following?.indexOf(id);
       followeduser.following.splice(index, 1);
       await followeduser.save();
     }
     for (let i = 0; i < following.length; i++) {
       const followeruser = await User.findById(following[i]);
-      const index = await followeruser.follower.indexof(id);
+      const index = await followeruser.follower.indexOf(id);
       followeruser.follower.splice(index, 1);
       await followeruser.save();
     }
+    const findpost= await Post.find({
+       likes :{
+         $in:id
+       }
+    })
+    console.log(findpost)
+    return res.status(200).json({
+      success:true
+    })
   } catch (err) {
     console.log(err);
   }
